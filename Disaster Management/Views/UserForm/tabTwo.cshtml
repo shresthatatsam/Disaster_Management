@@ -1,0 +1,124 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Example</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places"></script>
+    <style>
+        #map {
+            height: 300px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Disaster Report Form</h2>
+        <form action="/Home/SubmitForm" method="post" enctype="multipart/form-data">
+
+            <div class="form-group">
+                <label for="severity">Severity</label>
+                <input type="text" class="form-control" id="severity" name="severity" required>
+            </div>
+
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" class="form-control" id="firstName" name="FirstName" required>
+            </div>
+            <div class="form-group">
+                <label for="middleName">Middle Name</label>
+                <input type="text" class="form-control" id="middleName" name="MiddleName">
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" class="form-control" id="lastName" name="LastName" required>
+            </div>
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" class="form-control" id="age" name="Age" required>
+            </div>
+            <div class="form-group">
+                <label>Sex</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="Sex" id="male" value="Male" required>
+                    <label class="form-check-label" for="male">Male</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="Sex" id="female" value="Female">
+                    <label class="form-check-label" for="female">Female</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" class="form-control" id="dob" name="DOB" required>
+            </div>
+            <div class="form-group">
+                <label for="disasterDate">Date of Disaster</label>
+                <input type="date" class="form-control" id="disasterDate" name="DisasterDate" required>
+            </div>
+            <div class="form-group">
+                <label for="district">District</label>
+                <input type="text" class="form-control" id="district" name="District" required>
+            </div>
+            <div class="form-group">
+                <label for="pradesh">Pradesh (Province)</label>
+                <input type="text" class="form-control" id="pradesh" name="Pradesh" required>
+            </div>
+            <div class="form-group">
+                <label for="municipality">Municipality</label>
+                <input type="text" class="form-control" id="municipality" name="Municipality" required>
+            </div>
+            <div class="form-group">
+                <label for="toleName">Tole Name</label>
+                <input type="text" class="form-control" id="toleName" name="ToleName" required>
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber">Phone Number</label>
+                <input type="tel" class="form-control" id="phoneNumber" name="PhoneNumber" required>
+            </div>
+            @Html.Partial("tabThree")
+           @*  <div class="form-group">
+                <label for="photos">Photos</label>
+                <input type="file" class="form-control-file" id="photos" name="Photos" multiple>
+                <div id="imagePreview" class="mt-2"></div>
+            </div> *@
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control" id="description" name="Description" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        previewImages();
+        function previewImages() {
+            var input = document.getElementById('photos');
+            var preview = document.getElementById('imagePreview');
+            preview.innerHTML = ''; // Clear previous previews
+
+            if (input.files) {
+                for (var i = 0; i < input.files.length; i++) {
+                    var file = input.files[i];
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        var img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.classList.add('img-preview');
+                        preview.appendChild(img);
+                    };
+
+                    reader.readAsDataURL(file);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
+

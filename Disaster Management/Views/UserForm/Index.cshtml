@@ -1,17 +1,58 @@
-﻿@{
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Tab Navigation</title>
+    <style>
+        .tab-content {
+            display: none;
+        }
 
-    ViewBag.Title = "Disaster Dropdown";
+            .tab-content.active {
+                display: block;
+            }
 
+        .nav-buttons {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="tab1" class="tab-content active">
+        @Html.Partial("tabOne")
+    </div>
+    <div id="tab2" class="tab-content">
+        @Html.Partial("tabTwo")
+    </div>
+    <div id="tab3" class="tab-content">
+       
+    </div>
 
+    <div class="nav-buttons">
+        <button id="prevBtn" onclick="changeTab(-1)">Previous</button>
+        <button id="nextBtn" onclick="changeTab(1)">Next</button>
+    </div>
 
-    var disasters = ViewBag.DisasterList;
-}
+    <script>
+        let currentTabIndex = 0;
+        const tabs = document.querySelectorAll('.tab-content');
 
-<select id="disasterDropdown" class="form-control">
-    <option value="">Select a disaster</option>
-    @foreach (var disaster in disasters)
+        function showTab(index) {
+            tabs.forEach((tab, i) => {
+                tab.classList.toggle('active', i === index);
+            });
+        }
 
-    {
-        <option value="@disaster.id">@disaster.category</option>
-    }
-</select>
+        function changeTab(step) {
+            currentTabIndex += step;
+            if (currentTabIndex < 0) currentTabIndex = 0;
+            if (currentTabIndex >= tabs.length) currentTabIndex = tabs.length - 1;
+            showTab(currentTabIndex);
+        }
+
+        // Initial tab setup
+        showTab(currentTabIndex);
+    </script>
+</body>
+</html>
