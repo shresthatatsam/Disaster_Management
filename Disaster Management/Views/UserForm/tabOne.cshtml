@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Disaster Dropdown";
+    var disasters = ViewBag.DisasterList;
+}
+
+<select id="disasterDropdown" class="form-control">
+    <option value="">Select a disaster</option>
+    @foreach (var disaster in disasters)
+
+
+
+    {
+        <option value="@disaster.id">@disaster.category</option>
+    }
+</select>
