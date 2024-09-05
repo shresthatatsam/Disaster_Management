@@ -3,13 +3,139 @@
     var disasters = ViewBag.DisasterList;
 }
 
-<select id="disasterDropdown" class="form-control">
-    <option value="">Select a disaster</option>
-    @foreach (var disaster in disasters)
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <div class="container mt-5">
+        <h2>Disaster Report Form</h2>
+        <form action="/Home/SubmitForm" method="post" enctype="multipart/form-data">
+
+            <div class="form-group">
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <label for="severity">Disaster Selection</label>
+                        <select id="disasterDropdown" class="form-control">
+                            <option value="">Select a disaster</option>
+                            @foreach (var disaster in disasters)
+                            {
+                                <option value="@disaster.id">@disaster.category</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="severity">Severity</label>
+                        <input type="text" class="form-control" id="severity" name="severity" required>
+                    </div>
+                </div>
+              
+            </div>
 
 
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="firstName">First Name</label>
+                        <input type="text" class="form-control" id="firstName" name="FirstName" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="middleName">Middle Name</label>
+                        <input type="text" class="form-control" id="middleName" name="MiddleName">
 
-    {
-        <option value="@disaster.id">@disaster.category</option>
-    }
-</select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" name="LastName" required>
+
+                    </div>
+                </div>
+            </div>
+     
+         
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="age">Age</label>
+                        <input type="number" class="form-control" id="age" name="Age" required>
+                        </div>
+                    <div class="col-md-3">
+                        <label>Sex</label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Sex" id="male" value="Male" required>
+                                    <label class="form-check-label" for="male">Male</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="Sex" id="female" value="Female">
+                                    <label class="form-check-label" for="female">Female</label>
+                                </div>
+                            </div>
+                        </div>
+                       
+                       
+                    </div>
+                    <div class="col-md-3">
+                        <label for="dob">Date of Birth</label>
+                        <input type="date" class="form-control" id="dob" name="DOB" required>
+                        </div>
+                    <div class="col-md-3">
+                        <label for="disasterDate">Date of Disaster</label>
+                        <input type="date" class="form-control" id="disasterDate" name="DisasterDate" required>
+                    </div>
+                </div>
+              
+            </div>
+           
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="district">District</label>
+                        <input type="text" class="form-control" id="district" name="District" required>
+                        </div>
+                    <div class="col-md-3">
+                        <label for="pradesh">Pradesh (Province)</label>
+                        <input type="text" class="form-control" id="pradesh" name="Pradesh" required>
+                    </div>
+                      <div class="col-md-3">
+                        <label for="municipality">Municipality</label>
+                        <input type="text" class="form-control" id="municipality" name="Municipality" required>
+                        </div>
+                    <div class="col-md-3">
+                        <label for="toleName">Tole Name</label>
+                        <input type="text" class="form-control" id="toleName" name="ToleName" required>
+                    </div>
+                </div>
+               
+            </div>
+           
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="phoneNumber">Phone Number</label>
+                        <input type="tel" class="form-control" id="phoneNumber" name="PhoneNumber" required>
+                        </div>
+                        </div>
+              
+            </div>
+            @Html.Partial("tabThree")
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="description" name="Description" rows="4" required></textarea>
+                    </div>
+                </div>
+              </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+   
+</body>
+</html>
+

@@ -21,38 +21,8 @@
 <body>
     <div id="tab1" class="tab-content active">
         @Html.Partial("tabOne")
+      
     </div>
-    <div id="tab2" class="tab-content">
-        @Html.Partial("tabTwo")
-    </div>
-    <div id="tab3" class="tab-content">
-       
-    </div>
-
-    <div class="nav-buttons">
-        <button id="prevBtn" onclick="changeTab(-1)">Previous</button>
-        <button id="nextBtn" onclick="changeTab(1)">Next</button>
-    </div>
-
-    <script>
-        let currentTabIndex = 0;
-        const tabs = document.querySelectorAll('.tab-content');
-
-        function showTab(index) {
-            tabs.forEach((tab, i) => {
-                tab.classList.toggle('active', i === index);
-            });
-        }
-
-        function changeTab(step) {
-            currentTabIndex += step;
-            if (currentTabIndex < 0) currentTabIndex = 0;
-            if (currentTabIndex >= tabs.length) currentTabIndex = tabs.length - 1;
-            showTab(currentTabIndex);
-        }
-
-        // Initial tab setup
-        showTab(currentTabIndex);
-    </script>
+  
 </body>
 </html>

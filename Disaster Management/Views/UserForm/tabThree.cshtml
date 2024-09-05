@@ -9,56 +9,88 @@
         .form-group {
             margin-bottom: 1rem;
         }
+
+        .image-preview {
+            max-width: 20%;
+            height: auto;
+            margin-top: 0px;
+        }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <div class="container mt-4">
-        <div id="dynamicForm">
-            <div class="form-group" id="form-group-1">
-                <label for="photos-1">Photos</label>
-                <input type="file" class="form-control-file" id="photos-1" name="Photos[]" multiple>
-                <div id="imagePreview-1" class="mt-2"></div>
+        <form id="dynamicForm" action="/Home/SubmitForm" method="post" enctype="multipart/form-data">
+            <div id="dynamicFields">
+                <div class="form-group" id="form-group-1">
+                    <label for="photos-1">Photos</label>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="file" class="form-control-file" id="photos-1" name="Photos[]" multiple>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="imagePreview-1"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <button class="btn btn-primary" id="addButton">Add</button>
+            <button type="button" class="btn btn-primary" id="addButton">Add</button>
+        </form>
     </div>
 
     <script>
-        let formCounter = 1;
+        $(document).ready(function () {
+            let formCounter = 1;
 
-        document.getElementById('addButton').addEventListener('click', function() {
-            formCounter++;
+            // Function to create a new form-group
+            function createFormGroup(counter) {
+                return `
+                            <div class="form-group" id="form-group-${counter}">
+                                <label for="photos-${counter}">Photo</label>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="file" class="form-control-file" id="photos-${counter}" name="Photos[]" multiple>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div id="imagePreview-${counter}" class="mt-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+            }
 
-            // Create new form-group element
-            const newFormGroup = document.createElement('div');
-            newFormGroup.className = 'form-group';
-            newFormGroup.id = `form-group-${formCounter}`;
+            // Function to display image previews
+            function displayImagePreview(files, previewContainer) {
+                previewContainer.empty(); // Clear previous previews
+                $.each(files, function (_, file) {
+                    if (file && file.type.startsWith('image/')) {
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            $('<img>')
+                                .attr('src', e.target.result)
+                                .addClass('image-preview')
+                                .appendTo(previewContainer);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+            }
 
-            // Create new label
-            const newLabel = document.createElement('label');
-            newLabel.htmlFor = `photos-${formCounter}`;
-            newLabel.textContent = 'Photo';
+            // Add new form group on button click
+            $('#addButton').on('click', function () {
+                formCounter++;
+                $('#dynamicFields').append(createFormGroup(formCounter));
 
-            // Create new input
-            const newInput = document.createElement('input');
-            newInput.type = 'file';
-            newInput.className = 'form-control-file';
-            newInput.id = `photos-${formCounter}`;
-            newInput.name = 'Photos[]';
-            newInput.multiple = true;
+                // Add event listener for new file input
+                $(`#photos-${formCounter}`).on('change', function () {
+                    displayImagePreview(this.files, $(`#imagePreview-${formCounter}`));
+                });
+            });
 
-            // Create new imagePreview div
-            const newImagePreview = document.createElement('div');
-            newImagePreview.id = `imagePreview-${formCounter}`;
-            newImagePreview.className = 'mt-2';
-
-            // Append elements to the new form-group
-            newFormGroup.appendChild(newLabel);
-            newFormGroup.appendChild(newInput);
-            newFormGroup.appendChild(newImagePreview);
-
-            // Append the new form-group to the form
-            document.getElementById('dynamicForm').appendChild(newFormGroup);
+            // Initial file input event listener
+            $('#photos-1').on('change', function () {
+                displayImagePreview(this.files, $('#imagePreview-1'));
+            });
         });
     </script>
 </body>
