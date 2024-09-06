@@ -1,0 +1,51 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.tab-container {
+    width: 50%;
+    margin: auto;
+}
+
+.tab-content {
+    position: relative;
+}
+
+.tab-pane {
+    display: none;
+}
+
+    .tab-pane.active {
+        display: block;
+    }
+
+button {
+    margin: 10px;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+    button.prev-button {
+        background-color: #6c757d;
+    }
+
+    button:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
+
+label {
+    display: block;
+    margin-top: 0.5em;
+}
+
+input {
+    margin-bottom: 1em;
+    width: 100%;
+    padding: 0.5em;
+    box-sizing: border-box;
+}
